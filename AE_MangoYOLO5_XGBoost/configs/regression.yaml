@@ -1,0 +1,44 @@
+# XGBoost Regressor Parameters for Size Estimation
+
+# Standard XGBoost Hyperparameters
+n_estimators: 200
+learning_rate: 0.05
+max_depth: 5
+subsample: 0.8
+colsample_bytree: 0.8
+gamma: 0.1 # Minimum loss reduction required to make a further partition
+reg_alpha: 0.1 # L1 regularization
+reg_lambda: 0.1 # L2 regularization
+objective: 'reg:squarederror' # Default, will be overridden if custom Lpos is used effectively
+
+# Positional Loss (Lpos) parameters (Eq. 10)
+# These are coefficients for the terms in Lpos
+alpha_lpos: 0.2  # Weight for Term-1 (aspect ratio discrepancy)
+beta_lpos: 0.3   # Weight for Term-2 (area discrepancy)
+gamma_lpos: 0.2  # Weight for Term-3 (1 - DIoU of bounding boxes)
+delta_lpos: 0.3  # Weight for Term-4 (perimeter discrepancy)
+
+# Features for regression model
+# Input features to XGBoost will be ['a_prime', 'b_prime', 'eccentricity']
+# Output will be [actual_a_cm, actual_b_cm] or just actual_area_cm^2
+# The paper's Lpos suggests predicting a and b, then calculating area.
+# We will aim to predict actual a_cm and actual b_cm.
+
+# Fixed distance for perspective correction as per paper
+camera_to_tree_distance_m: 5.0
+# Focal length in pixels needs to be known/calibrated for the specific camera used
+# Or, if the 'f' factor (Eq. 7) can be determined empirically or set to 1 and absorbed by regressor.
+# The paper states: "To convert this to the actual size, we accounted for parameters such as
+# the consistently maintained camera-to-tree distance of 5 meters."
+# This implies f = (Focal_Length_pixels * Real_Height_of_Mango_in_Frame_cm) / (Mango_Height_in_Image_pixels * Distance_cm)
+# For simplicity in example, if 'f' cannot be precisely calculated, it might be learned by the regressor implicitly.
+# Or, a reference object of known size at the same distance can be used to calibrate 'f'.
+# We'll assume for now that a perspective factor 'f' can be applied.
+perspective_factor_f: 1.0 # Placeholder: This needs to be calibrated or carefully handled.
+                           # If Real Height of Mango is unknown, this is tricky.
+                           # The paper implies this conversion is done.
+
+# Output of regression model (what it predicts)
+# target_variables: ['actual_a_cm', 'actual_b_cm']
+# If predicting area directly, target_variables: ['actual_area_cm2']
+# Let's stick to predicting a_cm, b_cm as Lpos needs them.

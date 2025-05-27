@@ -1,0 +1,27 @@
+# AE-MangoYOLO5 Detection Model Parameters
+
+# Backbone and Neck Configuration
+base_model_variant: "yolov5s" # Underlying structure
+attention_reduction_ratio: 16 # 'r' for CAM module
+sam_kernel_size: 7 # Kernel size for SAM convolution
+
+# Anchor boxes (example, needs to be tuned for your dataset)
+# anchors: [
+#   [10,13, 16,30, 33,23],  # P3/8
+#   [30,61, 62,45, 59,119], # P4/16
+#   [116,90, 156,198, 373,326] # P5/32
+#   # Potentially new anchors for 160x160 head P6/64
+# ]
+num_classes: 1 # Mango
+
+# U-DIoU parameters (from Table 1 in paper, used for NMS or advanced loss)
+# Note: These are parameters of the U-DIoU formulation, not all are hyperparameters to tune
+# alpha_iou_weight: 1.0 # Example weight for IoU term
+# v_aspect_ratio_consistency: 4/ (3.1415926535**2) # (4/pi^2)
+# s_scale_invariance_lambda_tuning: 1.0 # Tuning parameter for scale invariance
+# beta_center_distance_penalty: 1.0 # Adjusting importance of center distance
+# theta_angular_alignment_importance: 1.0 # Adjusting importance of angular alignment
+
+# NMS Parameters
+nms_iou_threshold: 0.45
+nms_conf_threshold: 0.25

@@ -1,0 +1,10 @@
+torch>=1.9.0
+torchvision>=0.10.0
+xgboost>=1.5.0
+numpy>=1.20.0
+opencv-python>=4.5.0
+scikit-learn>=0.24.0
+pyyaml>=5.4.0
+matplotlib>=3.4.0
+pandas>=1.3.0 # For handling tabular data like caliper measurements
+# Add any other specific versions if needed

@@ -1,0 +1,29 @@
+# Paths
+original_image_dir: "path/to/your/original_mango_images/"
+patch_dir: "path/to/your/extracted_patches/" # For detection model
+annotation_dir: "path/to/yolo_annotations/" # For detection model
+caliper_measurement_file: "path/to/caliper_measurements.csv" # For size estimation
+
+# Image and Patch Parameters
+original_image_height: 1080
+original_image_width: 1920
+patch_size: 120 # As per paper 120x120 patches used
+
+# Dataset splits
+train_val_split_ratio: 0.8 # For detection and regression
+
+# Camera and Perspective Parameters (Section 3.3, Eq. 7)
+# If focal length and real height of object are used for 'f'
+# focal_length_pixels: TODO # Effective focal length in pixels
+# real_height_of_object_cm: TODO # If a reference object is used
+# distance_to_object_m: 5.0 # Fixed camera-to-tree distance as per paper
+
+# For size estimation (200 samples, 180 train, 20 test)
+size_estimation_total_samples: 200
+size_estimation_train_samples: 180
+size_estimation_test_samples: 20
+
+# Ground truth data column names in caliper_measurement_file (example)
+gt_width_col: 'Width_cm'
+gt_height_col: 'Length_cm' # Assuming length corresponds to height for ellipse
+image_id_col: 'Image_ID' # To link with detected bounding boxes

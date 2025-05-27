@@ -1,0 +1,26 @@
+# Training Hyperparameters
+
+# Common
+device: "cuda" # "cuda" or "cpu"
+seed: 42
+
+# Detection Model (AE-MangoYOLO5)
+detection_epochs: 20
+detection_batch_size: 16
+detection_learning_rate: 0.01
+detection_optimizer: "AdamW" # (AdamW, SGD, etc.)
+detection_lr_scheduler: "CosineAnnealingLR" # (StepLR, CosineAnnealingLR, etc.)
+# detection_weight_decay: 0.0005
+# detection_momentum: 0.937 # For SGD
+# detection_patience: 10 # For early stopping
+
+# Checkpoint saving
+detection_checkpoint_dir: "outputs/checkpoints/detection/"
+regression_model_save_path: "outputs/models/xgboost_mango_sizer.json"
+
+# Regression Model (XGBoost)
+# XGBoost hyperparameters are in regression.yaml
+# Training for XGBoost is usually not epoch-based in the same way as NNs.
+# It involves fitting the model to the training data.
+# Early stopping rounds for XGBoost
+xgboost_early_stopping_rounds: 20
